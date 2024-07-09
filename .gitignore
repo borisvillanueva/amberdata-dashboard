@@ -1,0 +1,7 @@
+.idea
+sevki_notes.md
+build/
+dist/
+*pycache*
+.eggs/
+*egg-info*
