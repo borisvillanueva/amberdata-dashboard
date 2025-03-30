@@ -9,6 +9,7 @@ We'll aim to keep this package as up to date as possible with the latest feature
 
 This package currently supports:
 - Spot REST API
+- Futures REST API
 
 ## Development
 
