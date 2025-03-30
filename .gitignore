@@ -1,7 +1,7 @@
 .idea
-sevki_notes.md
-build/
-dist/
-*pycache*
-.eggs/
-*egg-info*
+.localKeys
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+.coverage
