@@ -119,7 +119,7 @@ class SpotRestTest(unittest.TestCase):
         self.assertTrue('avax_usdt' in pair_set, 'avax_usdt not in pair')
 
     def test_get_exchanges_reference_vanilla(self):
-        reference_data = srs.get_exhanges_reference()
+        reference_data = srs.get_exchanges_reference()
         self.assertTrue('data' in reference_data.keys(), 'data not in reference')
         exchange_set = set()
         binance_instrument_set = set()
@@ -132,8 +132,8 @@ class SpotRestTest(unittest.TestCase):
         self.assertTrue('eth_usdt' in binance_instrument_set, 'pairs not in reference')
         self.assertTrue('avax_usdt' in binance_instrument_set, 'pairs not in reference')
 
-    def test_test_get_exchanges_reference_specific_exchange(self):
-        reference_data = srs.get_exhanges_reference(exchanges=[MarketDataVenue.BINANCE, MarketDataVenue.COINBASE])
+    def test_get_exchanges_reference_specific_exchange(self):
+        reference_data = srs.get_exchanges_reference(exchanges=[MarketDataVenue.BINANCE, MarketDataVenue.COINBASE])
         self.assertTrue('data' in reference_data.keys(), 'data not in reference')
         exchange_set = set()
         binance_instrument_set = set()
@@ -146,8 +146,8 @@ class SpotRestTest(unittest.TestCase):
         self.assertTrue('eth_usdt' in binance_instrument_set, 'pairs not in reference')
         self.assertTrue('avax_usdt' in binance_instrument_set, 'pairs not in reference')
 
-    def test_test_get_exhanges_reference_specific_pair(self):
-        reference_data = srs.get_exhanges_reference(instruments=['btc_usdt', 'avax_usdt'])
+    def test_get_exchanges_reference_specific_pair(self):
+        reference_data = srs.get_exchanges_reference(instruments=['btc_usdt', 'avax_usdt'])
         self.assertTrue('data' in reference_data.keys(), 'data not in reference')
         exchange_set = set()
         instrument_set = set()

@@ -53,8 +53,8 @@ class SpotRestService(RestService):
         lg.info(f"Finished {description}")
         return return_dict
 
-    def get_exhanges_reference(self, exchanges: List[MarketDataVenue] = None, instruments: List[str] = None,
-                               include_inactive: bool = None, include_original_reference: bool = None) -> Dict:
+    def get_exchanges_reference(self, exchanges: List[MarketDataVenue] = None, instruments: List[str] = None,
+                                include_inactive: bool = None, include_original_reference: bool = None) -> Dict:
         params = {}
         if exchanges is not None and len(exchanges) > 0:
             params['exchange'] = ",".join(exchange.value for exchange in exchanges)
