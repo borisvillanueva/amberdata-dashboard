@@ -121,7 +121,7 @@ class RestService(ABC):
     def _get_response(cls, url: str, params: Dict[str, str], headers: Dict[str, str], description: str,
                       retry_count: int = 5, sleep_duration: float = 10.0) -> [bool, object]:
         while retry_count > 0:
-            lg.debug(f"Executing request with url:{url}, params={params}, retryCount:{retry_count}")
+            lg.debug(f"Executing request with url:{url}, params={params}, retry_count:{retry_count}")
             with requests.session() as session:
                 try:
                     response_raw = session.get(url, headers=headers, params=params)
@@ -250,12 +250,12 @@ class RestService(ABC):
 
     @classmethod
     def get_and_process_response_df(cls, url: str, params: Dict[str, str], headers: Dict[str, str], description: str,
-                                    retryCount: int = 5) -> pd.DataFrame:
+                                    retry_count: int = 5) -> pd.DataFrame:
         more_data_to_fetch = True
         next_url = url
         paged_data = pd.DataFrame()
         while more_data_to_fetch:
-            success, res = cls._get_response(next_url, params, headers, description, retryCount)
+            success, res = cls._get_response(next_url, params, headers, description, retry_count)
             if success:
                 raw_data = cls._process_payload_df(cls._process_response(res))
                 # If 'next' is in the raw data, and it contains a URL, it implies the data is paginated, run in a loop until all data is received.
@@ -269,7 +269,7 @@ class RestService(ABC):
                 else:
                     continue
             else:
-                raise ValueError(f"Failed to fetch data for request:{description}, url:{url}, params:{params} after {retryCount} retries.")
+                raise ValueError(f"Failed to fetch data for request:{description}, url:{url}, params:{params} after {retry_count} retries.")
 
         if 'next' in paged_data.columns:
             paged_data.drop(columns=['next'], inplace=True)
