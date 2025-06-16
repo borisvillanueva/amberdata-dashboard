@@ -342,5 +342,5 @@ def get_amberdata_api_key_from_local_file(file_path: str) -> str:
 def get_amberdata_api_key_from_aws_secret_manager(secret_name: str, secret_key: str) -> str:
     sm = SecretManager()
     secret_string = sm.get_secret(secret_name)
-    secret_dict = eval(secret_string)
+    secret_dict = json.loads(secret_string)
     return secret_dict[secret_key]
