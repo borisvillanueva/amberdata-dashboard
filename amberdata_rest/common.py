@@ -122,7 +122,7 @@ class RestService(ABC):
                       retry_count: int = 5, sleep_duration: float = 10.0) -> [bool, object]:
         while retry_count > 0:
             lg.debug(f"Executing request with url:{url}, params={params}, retryCount:{retry_count}")
-            with requests.session() as session:
+            with requests.Session() as session:
                 try:
                     response_raw = session.get(url, headers=headers, params=params)
                     response_raw.raise_for_status()
