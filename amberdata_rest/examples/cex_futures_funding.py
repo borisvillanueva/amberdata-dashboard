@@ -9,7 +9,7 @@ from amberdata_rest.common import ApiKeyGetMode
 from amberdata_rest.constants import TimeFormat, MarketDataVenue
 from amberdata_rest.futures.service import FuturesRestService
 
-frs = FuturesRestService(ApiKeyGetMode.LOCAL_FILE, {"local_key_path": "../.localKeys"})
+frs = FuturesRestService(ApiKeyGetMode.LOCAL_FILE, {"local_key_path":"keys.json"})
 
 
 def get_funding_figs(instrumentList: List[str], start_date: datetime, end_date: datetime, exchanges: List[MarketDataVenue]):
@@ -40,12 +40,14 @@ def get_funding_figs(instrumentList: List[str], start_date: datetime, end_date: 
 
 
 def main():
-    assetList = ["BTC", "ETH", "SOL", "AVAX", "SUI", "SEI", "LINK"]
+    # assetList = ["BTC", "ETH", "SOL", "AVAX", "SUI", "SEI", "LINK"]
+    assetList = ["BTC"]  # Temporarily testing with only BTC
     instrumentList = [f"{asset}USDT" for asset in assetList]
     end_date = datetime.now(tz=pytz.utc) - timedelta(minutes=10)
     lookback = timedelta(days=30)
     start_date = end_date - lookback
-    exchanges = [MarketDataVenue.BINANCE, MarketDataVenue.BYBIT, MarketDataVenue.BITMEX, MarketDataVenue.DERIBIT, MarketDataVenue.HUOBI, MarketDataVenue.KRAKEN, MarketDataVenue.OKEX ]
+    # exchanges = [MarketDataVenue.BINANCE, MarketDataVenue.BYBIT, MarketDataVenue.BITMEX, MarketDataVenue.DERIBIT, MarketDataVenue.HUOBI, MarketDataVenue.KRAKEN, MarketDataVenue.OKEX ]
+    exchanges = [MarketDataVenue.BINANCE] # Temporarily testing with only BINANCE
     # Draw a price & volume graph for a given asset
     get_funding_figs(instrumentList, start_date, end_date, exchanges)
 

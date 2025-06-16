@@ -236,10 +236,17 @@ class RestService(ABC):
         lg.debug("Starting multi threaded requests...")
         result_dfs = p.map(partial_process_batch, date_ranges)
         lg.debug("Finished multi threaded requests...")
-        result_df = pd.concat([pd.DataFrame()] + result_dfs, ignore_index=True)
+
+        # result_df = pd.concat([pd.DataFrame()] + result_dfs, ignore_index=True)
+        # if result_df.empty:
+        #     lg.warning("No data returned from any of the parallel requests.")
+        # return result_df
+
+        result_df = pd.concat(result_df, ignore_index=True)
         if result_df.empty:
             lg.warning("No data returned from any of the parallel requests.")
         return result_df
+
 
     @classmethod
     def get_and_process_response_df(cls, url: str, params: Dict[str, str], headers: Dict[str, str], description: str,
