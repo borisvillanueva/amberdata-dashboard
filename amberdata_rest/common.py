@@ -237,14 +237,17 @@ class RestService(ABC):
         result_dfs = p.map(partial_process_batch, date_ranges)
         lg.debug("Finished multi threaded requests...")
 
-        # result_df = pd.concat([pd.DataFrame()] + result_dfs, ignore_index=True)
-        # if result_df.empty:
-        #     lg.warning("No data returned from any of the parallel requests.")
-        # return result_df
+        # Optionally close the pool to free resources
+        p.close()
+        p.join()
 
-        result_df = pd.concat(result_df, ignore_index=True)
-        if result_df.empty:
+        # Filter out any empty DataFrames before concatenation
+        result_dfs = [df for df in result_dfs if not df.empty]
+        if not result_dfs:
             lg.warning("No data returned from any of the parallel requests.")
+            return pd.DataFrame()
+
+        result_df = pd.concat(result_dfs, ignore_index=True)
         return result_df
 
 
